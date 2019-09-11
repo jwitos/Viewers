@@ -12,8 +12,8 @@ import { precacheAndRoute } from 'workbox-precaching/precacheAndRoute.mjs';
 import { registerRoute } from 'workbox-routing/registerRoute';
 import { StaleWhileRevalidate } from 'workbox-strategies/StaleWhileRevalidate';
 import { CacheFirst } from 'workbox-strategies/CacheFirst';
-import { Plugin as CacheableResponsePlugin } from 'workbox-cacheable-response/Plugin';
-import { Plugin as ExpirationPlugin } from 'workbox-expiration/Plugin';
+import { CacheableResponsePlugin } from 'workbox-cacheable-response/CacheableResponsePlugin';
+import { ExpirationPlugin } from 'workbox-expiration/ExpirationPlugin';
 
 // https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle#skip_the_waiting_phase
 skipWaiting();
