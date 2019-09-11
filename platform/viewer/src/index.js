@@ -28,25 +28,37 @@ import OHIFDicomMicroscopyExtension from '@ohif/extension-dicom-microscopy';
 import OHIFDicomPDFExtension from '@ohif/extension-dicom-pdf';
 
 // Default Settings
-let config = {};
+let config = window ? window.config : {};
+config = config || {};
+
 const appDefaults = {
   routerBasename: '/',
-};
-
-if (window) {
-  config = window.config || {};
-  config.extensions = [
+  extensions: [
     OHIFVTKExtension,
     OHIFDicomHtmlExtension,
     OHIFDicomMicroscopyExtension,
     OHIFDicomPDFExtension,
-  ];
-}
-
+  ],
+};
 const appProps = Object.assign({}, appDefaults, config);
+
+// Service Worker
+const browserSupportsServiceWorkers = 'serviceWorker' in navigator;
+if (browserSupportsServiceWorkers) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register(`${appProps.routerBasename}service-worker.js`)
+      .then(registration => {
+        console.log('SW registered: ', registration);
+      })
+      .catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
+  });
+}
 
 // Create App
 const app = React.createElement(App, appProps, null);
 
-// Render
+// Render App
 ReactDOM.render(app, document.getElementById('root'));

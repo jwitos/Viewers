@@ -10,7 +10,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractCssChunksPlugin = require('extract-css-chunks-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 // ~~ Rules
@@ -92,36 +92,38 @@ module.exports = (env, argv) => {
         },
         // favicon: `${PUBLIC_DIR}/favicon.ico`,
       }),
-      new WorkboxPlugin.GenerateSW({
-        swDest: 'sw.js',
-        clientsClaim: true,
-        skipWaiting: true,
-        exclude: [
-          new RegExp('^https://fonts.googleapis.com/'),
-          new RegExp('^https://fonts.gstatic.com/'),
-        ],
-        runtimeCaching: [
-          {
-            urlPattern: new RegExp('^https://fonts.googleapis.com/'),
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheName: 'google-fonts-stylesheets',
-            },
-          },
-          {
-            urlPattern: new RegExp('^https://fonts.gstatic.com/'),
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-webfonts',
+      new InjectManifest({
+        swSrc: path.join(SRC_DIR, 'service-worker.js'),
 
-              // Only cache 30 images / one year.
-              expiration: {
-                maxAgeSeconds: 60 * 60 * 24 * 365,
-                maxEntries: 30,
-              },
-            },
-          },
-        ],
+        // swDest: 'sw.js',
+        // clientsClaim: true,
+        // skipWaiting: true,
+        // exclude: [
+        //   new RegExp('^https://fonts.googleapis.com/'),
+        //   new RegExp('^https://fonts.gstatic.com/'),
+        // ],
+        // runtimeCaching: [
+        //   {
+        //     urlPattern: new RegExp('^https://fonts.googleapis.com/'),
+        //     handler: 'StaleWhileRevalidate',
+        //     options: {
+        //       cacheName: 'google-fonts-stylesheets',
+        //     },
+        //   },
+        //   {
+        //     urlPattern: new RegExp('^https://fonts.gstatic.com/'),
+        //     handler: 'CacheFirst',
+        //     options: {
+        //       cacheName: 'google-fonts-webfonts',
+
+        //       // Only cache 30 images / one year.
+        //       expiration: {
+        //         maxAgeSeconds: 60 * 60 * 24 * 365,
+        //         maxEntries: 30,
+        //       },
+        //     },
+        //   },
+        // ],
       }),
     ],
     // https://webpack.js.org/configuration/dev-server/
