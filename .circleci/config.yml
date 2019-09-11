@@ -234,6 +234,7 @@ workflows:
             - run: 'rm -rf ~/.yarn && npm i -g yarn && yarn -v && yarn global
                 add wait-on' # Use yarn latest
           yarn: true
+          record: false
           store_artifacts: true
           working_directory: platform/viewer
           build: yarn run build
@@ -250,6 +251,7 @@ workflows:
             - run: 'rm -rf ~/.yarn && npm i -g yarn && yarn -v && yarn global
                 add wait-on' # Use yarn latest
           yarn: true
+          record: false
           store_artifacts: true
           working_directory: platform/viewer
           build: yarn run build:package
@@ -277,7 +279,7 @@ workflows:
             - run: 'rm -rf ~/.yarn && npm i -g yarn && yarn -v && yarn global
                 add wait-on' # Use yarn latest
           yarn: true
-          record: true
+          record: false
           store_artifacts: true
           working_directory: platform/viewer
           build: yarn run build
@@ -297,6 +299,7 @@ workflows:
             - run: 'rm -rf ~/.yarn && npm i -g yarn && yarn -v && yarn global
                 add wait-on' # Use yarn latest
           yarn: true
+          record: false
           store_artifacts: true
           working_directory: platform/viewer
           build: yarn run build:package
