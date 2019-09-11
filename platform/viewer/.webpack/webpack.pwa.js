@@ -25,6 +25,7 @@ const PUBLIC_URL = process.env.PUBLIC_URL || '/';
 const APP_CONFIG = process.env.APP_CONFIG || 'config/default.js';
 const PROXY_TARGET = process.env.PROXY_TARGET;
 const PROXY_DOMAIN = process.env.PROXY_DOMAIN;
+const SKIP_MINIMIZE = process.env.SKIP_MINIMIZE;
 
 module.exports = (env, argv) => {
   const baseConfig = webpackBase(env, argv, { SRC_DIR, DIST_DIR });
@@ -94,36 +95,6 @@ module.exports = (env, argv) => {
       }),
       new InjectManifest({
         swSrc: path.join(SRC_DIR, 'service-worker.js'),
-
-        // swDest: 'sw.js',
-        // clientsClaim: true,
-        // skipWaiting: true,
-        // exclude: [
-        //   new RegExp('^https://fonts.googleapis.com/'),
-        //   new RegExp('^https://fonts.gstatic.com/'),
-        // ],
-        // runtimeCaching: [
-        //   {
-        //     urlPattern: new RegExp('^https://fonts.googleapis.com/'),
-        //     handler: 'StaleWhileRevalidate',
-        //     options: {
-        //       cacheName: 'google-fonts-stylesheets',
-        //     },
-        //   },
-        //   {
-        //     urlPattern: new RegExp('^https://fonts.gstatic.com/'),
-        //     handler: 'CacheFirst',
-        //     options: {
-        //       cacheName: 'google-fonts-webfonts',
-
-        //       // Only cache 30 images / one year.
-        //       expiration: {
-        //         maxAgeSeconds: 60 * 60 * 24 * 365,
-        //         maxEntries: 30,
-        //       },
-        //     },
-        //   },
-        // ],
       }),
     ],
     // https://webpack.js.org/configuration/dev-server/
@@ -158,6 +129,10 @@ module.exports = (env, argv) => {
       }),
       new OptimizeCSSAssetsPlugin({}),
     ];
+  }
+
+  if (SKIP_MINIMIZE) {
+    mergedConfig.optimization.minimize = false;
   }
 
   return mergedConfig;
