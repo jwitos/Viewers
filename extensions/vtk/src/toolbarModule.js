@@ -32,6 +32,24 @@ const definitions = [
     commandOptions: {},
   },
   {
+    id: 'Zoom',
+    label: 'Zoom',
+    icon: 'lung',
+    //
+    type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+    commandType: 'enableZoomTool',
+    commandOptions: {},
+  },
+  {
+    id: 'Pan',
+    label: 'Pan',
+    icon: 'liver',
+    //
+    type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+    commandType: 'enablePanTool',
+    commandOptions: {},
+  },
+  {
     id: 'setBlendModeToComposite',
     label: 'Disable MIP',
     icon: 'times',

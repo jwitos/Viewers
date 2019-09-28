@@ -8,6 +8,7 @@ import {
 
 import setMPRLayout from './utils/setMPRLayout.js';
 import setViewportToVTK from './utils/setViewportToVTK.js';
+import vtkInteractorStyleMPRPan from './utils/vtkInteractorStyleMPRPan.js';
 import vtkCoordinate from 'vtk.js/Sources/Rendering/Core/Coordinate';
 import vtkMath from 'vtk.js/Sources/Common/Core/Math';
 import vtkMatrixBuilder from 'vtk.js/Sources/Common/Core/MatrixBuilder';
@@ -160,6 +161,23 @@ const actions = {
     _setView(api, [0, 1, 0], [0, 0, 1]);
   },
   enableRotateTool: () => {
+    console.log('enableRotateTool called');
+    apis.forEach(api => {
+      const istyle = vtkInteractorStyleMPRSlice.newInstance();
+
+      switchMPRInteractors(api, istyle);
+    });
+  },
+  enableZoomTool: () => {
+    console.log('enableZoomTool called');
+    apis.forEach(api => {
+      const istyle = vtkInteractorStyleMPRSlice.newInstance();
+
+      switchMPRInteractors(api, istyle);
+    });
+  },
+  enablePanTool: () => {
+    console.log('enablePanTool called');
     apis.forEach(api => {
       const istyle = vtkInteractorStyleMPRSlice.newInstance();
 
@@ -324,6 +342,16 @@ const definitions = {
   },
   enableRotateTool: {
     commandFn: actions.enableRotateTool,
+    storeContexts: [],
+    options: {},
+  },
+  enableZoomTool: {
+    commandFn: actions.enableZoomTool,
+    storeContexts: [],
+    options: {},
+  },
+  enablePanTool: {
+    commandFn: actions.enablePanTool,
     storeContexts: [],
     options: {},
   },
