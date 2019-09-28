@@ -32,6 +32,15 @@ const definitions = [
     commandOptions: {},
   },
   {
+    id: 'Length',
+    label: 'Length',
+    icon: 'measure-temp',
+    //
+    type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+    commandName: 'enableLengthTool',
+    commandOptions: {},
+  },
+  {
     id: 'setBlendModeToComposite',
     label: 'Disable MIP',
     icon: 'times',

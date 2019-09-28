@@ -175,6 +175,13 @@ const actions = {
       istyle.setCallback(getCrosshairCallbackForIndex(index));
     });
   },
+  enableLengthTool: () => {
+    console.log('enable length tool triggered');
+
+    apis.forEach(api => {
+      switchMPRInteractors(api, istyle);
+    });
+  },
   enableLevelTool: () => {
     apis.forEach(api => {
       const istyle = vtkInteractorStyleMPRWindowLevel.newInstance();
@@ -336,6 +343,11 @@ const definitions = {
     commandFn: actions.enableLevelTool,
     storeContexts: [],
     options: {},
+  },
+  enableLengthTool: {
+    commandFn: actions.enableLengthTool,
+    storeContexts: [],
+    otpions: {},
   },
   setBlendModeToComposite: {
     commandFn: actions.setBlendMode,
